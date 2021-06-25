@@ -15,3 +15,7 @@ class CreateUserController {
 }
 
 export { CreateUserController }
+
+/*
+    server -> routes -> Controller -> Service (throw new error)
+*/

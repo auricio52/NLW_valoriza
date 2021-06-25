@@ -1,0 +1,15 @@
+import { Request, Response, NextFunction } from 'express';
+
+export function ensuteAdmin(request: Request, response: Response, next: NextFunction) {
+    // Verificar se o usuário é admin
+
+    const admin = true;
+
+    if (admin) {
+        return next();
+    }
+
+    return response.status(401).json({ 
+        error: "Unauthorized"
+    })
+}
