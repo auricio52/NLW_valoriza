@@ -1,13 +1,15 @@
 import { UserRepository } from "../repositories/UsersRepository"
+import { hash } from 'bcryptjs';
 
 interface UserRequest {
     name: string,
     email: string,
+    password: string
     admin?: boolean // O ?: significa que é um atributo opcional
 }
 
 class CreateUserService {
-    async execute({ name, email, admin }: UserRequest) {
+    async execute({ name, email, admin, password }: UserRequest) {
         const userRepository = new UserRepository();
 
         if (!email) {
@@ -22,10 +24,13 @@ class CreateUserService {
             throw new Error("User already exists");
         } 
 
+        const passwordHash = await hash(password, 8);
+
         const user = userRepository.create({
             name,
             email,
-            admin
+            admin,
+            password: passwordHash
         });
 
         await userRepository.save(user);
