@@ -9,7 +9,7 @@ interface UserRequest {
 }
 
 class CreateUserService {
-    async execute({ name, email, admin, password }: UserRequest) {
+    async execute({ name, email, admin = false, password }: UserRequest) {
         const userRepository = new UserRepository();
 
         if (!email) {
